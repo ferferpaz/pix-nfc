@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copiar PIX</title>
+<title>PIX</title>
 
 <style>
   body {
@@ -46,14 +46,12 @@
     background: #00a884;
     color: white;
     cursor: pointer;
-  }
-
-  button:active {
-    transform: scale(0.98);
+    width: 100%;
+    margin-bottom: 8px;
   }
 
   .msg {
-    margin-top: 12px;
+    margin-top: 10px;
     font-size: 14px;
     color: #008000;
     display: none;
@@ -64,25 +62,45 @@
 <body>
 
 <div class="box">
-  <h1>Copiar chave PIX</h1>
+  <h1>Chave PIX</h1>
 
   <div class="pix" id="pix">
     41.534.837/0001-06
   </div>
 
   <button onclick="copiar()">📋 Copiar PIX</button>
+  <button onclick="abrirBanco()">🏦 Abrir banco</button>
 
   <div class="msg" id="msg">PIX copiado!</div>
 </div>
 
 <script>
-  function copiar() {
-    const texto = document.getElementById("pix").innerText;
+  const pix = document.getElementById("pix").innerText;
 
-    navigator.clipboard.writeText(texto).then(() => {
+  function copiar() {
+    navigator.clipboard.writeText(pix).then(() => {
       document.getElementById("msg").style.display = "block";
     });
   }
+
+  function abrirBanco() {
+    // Deeplink genérico PIX (abre seletor de bancos no Android) (NÃO VAI FUNCIONAR EM IOS)
+    window.location.href = "pix://";
+  }
+
+  // Auto-copiar ao abrir (só se permitido)
+  window.addEventListener("load", () => {
+    navigator.clipboard.writeText(pix).then(() => {
+      document.getElementById("msg").style.display = "block";
+
+      // Pequeno tempinho antes de tentar abrir o banco
+      setTimeout(() => {
+        window.location.href = "pix://";
+      }, 600);
+    }).catch(() => {
+      // se o navegador bloquear o usuário usa botão manual
+    });
+  });
 </script>
 
 </body>
