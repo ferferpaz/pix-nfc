@@ -87,15 +87,12 @@
     const isAndroid = /Android/i.test(navigator.userAgent);
     
     if (isAndroid) {
-      // Esse link tenta abrir a categoria de apps de pagamento/finanças
       window.location.href = "intent://#Intent;scheme=pix;package=br.gov.bcb.pix;end";
       
-      // Se falhar, você pode tentar um fallback genérico após 1 segundo
       setTimeout(() => {
         window.location.href = "intent://#Intent;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end";
       }, 1000);
     } else {
-      // No iOS (iPhone), não há um link genérico, o usuário precisa abrir o app manualmente
       alert("Pronto! Agora abra o app do seu banco e cole a chave.");
     }
   }
@@ -118,4 +115,5 @@
 
 </body>
 </html>
+
 
