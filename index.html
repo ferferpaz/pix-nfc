@@ -74,36 +74,34 @@
 </div>
 
 <script>
-  const pix = document.getElementById("pix").innerText;
+  const pixFormatado = document.getElementById("pix").innerText;
+  const pixLimpo = pixFormatado.replace(/\D/g, '');
 
   function copiar() {
-    const chaveLimpa = pix.replace(/\D/g, ''); 
-    navigator.clipboard.writeText(chaveLimpa).then(() => {
-      document.getElementById("msg").style.display = "block";
-      setTimeout(() => { document.getElementById("msg").style.display = "none"; }, 2000);
+    navigator.clipboard.writeText(pixLimpo).then(() => {
+      mostrarMsg();
     });
   }
-      });
-  }
+
+  function mostrarMsg() {
+    const msg = document.getElementById("msg");
+    msg.style.display = "block";
+    setTimeout(() => {
+      msg.style.display = "none";
+    }, 2000);
   }
 
-  // Auto-copiar ao abrir (só se permitido)
+  // Autocopiar ao abrir (quando permitido pelo navegador)
   window.addEventListener("load", () => {
-    navigator.clipboard.writeText(pix).then(() => {
-      document.getElementById("msg").style.display = "block";
-
-      // Pequeno tempinho antes de tentar abrir o banco
-      setTimeout(() => {
-        window.location.href = "pix://";
-      }, 600);
-    }).catch(() => {
-      // se o navegador bloquear o usuário usa botão manual
-    });
+    navigator.clipboard.writeText(pixLimpo)
+      .then(() => {
+        mostrarMsg();
+      })
+      .catch(() => {
+        // se bloquear usa o manual
+      });
   });
 </script>
 
 </body>
 </html>
-
-
-
