@@ -69,7 +69,6 @@
   </div>
 
   <button onclick="copiar()">📋 Copiar PIX</button>
-  <button onclick="abrirBanco()">🏦 Abrir banco</button>
 
   <div class="msg" id="msg">PIX copiado!</div>
 </div>
@@ -78,23 +77,13 @@
   const pix = document.getElementById("pix").innerText;
 
   function copiar() {
-    navigator.clipboard.writeText(pix).then(() => {
+    const chaveLimpa = pix.replace(/\D/g, ''); 
+    navigator.clipboard.writeText(chaveLimpa).then(() => {
       document.getElementById("msg").style.display = "block";
+      setTimeout(() => { document.getElementById("msg").style.display = "none"; }, 2000);
     });
   }
-
-  function abrirBanco() {
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    
-    if (isAndroid) {
-      window.location.href = "intent://#Intent;scheme=pix;package=br.gov.bcb.pix;end";
-      
-      setTimeout(() => {
-        window.location.href = "intent://#Intent;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end";
-      }, 1000);
-    } else {
-      alert("Pronto! Agora abra o app do seu banco e cole a chave.");
-    }
+      });
   }
   }
 
@@ -115,5 +104,6 @@
 
 </body>
 </html>
+
 
 
