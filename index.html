@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copiar PIX</title>
+
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .box {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    max-width: 320px;
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .pix {
+    font-size: 16px;
+    font-weight: bold;
+    word-break: break-all;
+    margin-bottom: 16px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #00a884;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .msg {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #008000;
+    display: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Copiar chave PIX</h1>
+
+  <div class="pix" id="pix">
+    41.534.837/0001-06
+  </div>
+
+  <button onclick="copiar()">📋 Copiar PIX</button>
+
+  <div class="msg" id="msg">PIX copiado!</div>
+</div>
+
+<script>
+  function copiar() {
+    const texto = document.getElementById("pix").innerText;
+
+    navigator.clipboard.writeText(texto).then(() => {
+      document.getElementById("msg").style.display = "block";
+    });
+  }
+</script>
+
+</body>
+</html>
